@@ -7,7 +7,7 @@ import '../../domain/entities/share_service.dart';
 /// Kept as a single hierarchy (not one Cubit per section) because the Home
 /// screen renders as one cohesive feed — Featured Projects, Recommended
 /// Properties and Shary Ma3ak are always loaded and shown together.
-abstract class HomeState extends Equatable {
+sealed class HomeState extends Equatable {
   const HomeState();
 
   @override

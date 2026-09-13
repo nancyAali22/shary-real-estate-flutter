@@ -34,6 +34,14 @@ dependencies:
   # Skeleton/shimmer loading effect for professional loading states
   shimmer: ^3.0.0
 
+  # Locale-aware number/currency formatting (prices, investment %) —
+  # avoids hardcoding formatted strings as magic values in mock data
+  intl: ^0.19.0
+
+  # Crisp vector icons for Shary Ma3ak services + header actions —
+  # scales cleanly across screen densities instead of raster PNGs
+  flutter_svg: ^2.0.10+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -42,3 +50,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/icons/
