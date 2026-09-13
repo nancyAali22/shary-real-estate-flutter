@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/presentation/pages/home_page.dart';
+import '../widgets/placeholder_page.dart';
 
 class AppRouter {
   AppRouter._();
@@ -12,6 +13,27 @@ class AppRouter {
         path: '/',
         name: 'home',
         builder: (context, state) => const HomePage(),
+      ),
+      GoRoute(
+        path: '/properties',
+        name: 'properties',
+        builder: (context, state) => const PlaceholderPage(title: 'عقارات'),
+      ),
+      GoRoute(
+        path: '/properties-abroad',
+        name: 'properties-abroad',
+        builder: (context, state) =>
+        const PlaceholderPage(title: 'العقارات في الخارج'),
+      ),
+      GoRoute(
+        path: '/shary-ai',
+        name: 'shary-ai',
+        builder: (context, state) => const PlaceholderPage(title: 'Shary AI'),
+      ),
+      GoRoute(
+        path: '/more',
+        name: 'more',
+        builder: (context, state) => const PlaceholderPage(title: 'أخرى'),
       ),
     ],
   );
