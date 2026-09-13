@@ -28,6 +28,12 @@ dependencies:
   # Declarative routing between Home and placeholder screens
   go_router: ^14.6.2
 
+  # Professional Arabic typography (Cairo/Tajawal) instead of default Roboto
+  google_fonts: ^6.2.1
+
+  # Skeleton/shimmer loading effect for professional loading states
+  shimmer: ^3.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
