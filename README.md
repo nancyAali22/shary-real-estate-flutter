@@ -1,17 +1,41 @@
-# shary_real_estate
+# Shary Real Estate — Flutter Technical Assignment
 
-A new Flutter project.
+An improved, production-quality re-implementation of the **Shary** real estate app's Home screen, built as a technical assignment following a job interview.
 
-## Getting Started
+## Project Goal
 
-This project is a starting point for a Flutter application.
+This project demonstrates senior-level Flutter engineering: Clean Architecture, SOLID principles, strong performance practices, and thoughtful UI/UX improvements over the original reference screens — while preserving the Shary brand identity.
 
-A few resources to get you started if this is your first Flutter project:
+## Important Note
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+This project uses **local mock data only**. There is no backend API, no Firebase, and no authentication server. The architecture is designed so a real API can be integrated later without rewriting the UI layer.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tech Stack
+
+- Flutter & Dart
+- Material 3
+- flutter_bloc (Cubit) for state management
+- flutter_screenutil for responsive sizing
+- get_it for dependency injection
+- equatable for value equality
+- go_router for navigation
+
+## Architecture
+
+Clean Architecture with a feature-first structure:
+lib/
+├── core/ # shared theme, constants, routing, DI, shared widgets
+└── features/
+└── home/
+├── data/ # mock datasources, models, repository implementation
+├── domain/ # entities, repository contracts
+└── presentation/ # Cubit, pages, widgets
+
+
+## Status
+
+🚧 Work in progress — built incrementally, step by step.
+
+## Improvements Over Original Screens
+
+_(to be documented as features are implemented)_
