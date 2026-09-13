@@ -11,6 +11,7 @@ import '../cubit/home_cubit.dart';
 import '../cubit/home_state.dart';
 import '../widgets/featured_projects_section.dart';
 import '../widgets/home_header.dart';
+import '../widgets/home_loading_skeleton.dart';
 import '../widgets/recommended_properties_section.dart';
 import '../widgets/share_services_section.dart';
 
@@ -74,8 +75,7 @@ class _LoadingPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(Step 4.7): replace with shimmer skeletons.
-    return const Center(child: CircularProgressIndicator());
+    return const HomeLoadingSkeleton();
   }
 }
 
