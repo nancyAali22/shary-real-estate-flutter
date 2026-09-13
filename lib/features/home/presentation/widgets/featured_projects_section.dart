@@ -3,17 +3,21 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/widgets/slide_in_item.dart';
 import '../../domain/entities/property_listing.dart';
 import 'featured_project_card.dart';
 
-/// "أفضل المشاريع" section: title + a lazily-built horizontal list of
-/// [FeaturedProjectCard]s. Uses ListView.builder (not a Row inside a
-/// SingleChildScrollView) so off-screen cards are never built — matters
-/// once this list grows beyond a handful of mock items.
 class FeaturedProjectsSection extends StatelessWidget {
   const FeaturedProjectsSection({required this.projects, super.key});
 
   final List<PropertyListing> projects;
+
+  /// Height budget for everything below the image inside
+  /// FeaturedProjectCard: 2-line title (~45) + xs gap (4) +
+  /// location line (~17) + md gap (12) + contact buttons row (40),
+  /// plus a ~12px safety margin for font-metric variance across devices.
+  /// Keep this in sync if FeaturedProjectCard's text content changes.
+  static const double _cardTextBlockHeight = 130;
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +34,21 @@ class FeaturedProjectsSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: AppSpacing.md.h),
-        // Card width is 260.w, image is now 16:9 (≈146h at that width),
-        // so we size this from the card's own metrics instead of a
-        // hand-guessed fixed number. This intentionally has generous
-        // headroom (~30px) to absorb line-height variance across fonts
-        // and the max text-scale clamp (1.3x, see main.dart) — a fixed
-        // number tuned to *exactly* fit one device breaks on the next.
         SizedBox(
-          height: (260.w * 9 / 16) + AppSpacing.md.w * 2 + 100.h,
+          height:
+          (260.w * 9 / 16) +
+              AppSpacing.md.w * 2 +
+              _cardTextBlockHeight.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),
             itemCount: projects.length,
             itemBuilder: (context, index) => Padding(
               padding: EdgeInsets.only(left: AppSpacing.md.w),
-              child: FeaturedProjectCard(listing: projects[index]),
+              child: SlideInItem(
+                delay: Duration(milliseconds: 60 * index),
+                child: FeaturedProjectCard(listing: projects[index]),
+              ),
             ),
           ),
         ),
