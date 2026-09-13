@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'core/di/injection_container.dart';
 import 'core/routing/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
+  setupDependencyInjection();
   runApp(const SharyApp());
 }
 
