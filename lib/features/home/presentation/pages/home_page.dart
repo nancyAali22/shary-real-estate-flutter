@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../../../core/di/injection_container.dart';
 import '../../../../core/widgets/app_bottom_nav.dart';
 import '../cubit/home_cubit.dart';
@@ -12,6 +12,7 @@ import '../cubit/home_state.dart';
 import '../widgets/featured_projects_section.dart';
 import '../widgets/home_header.dart';
 import '../widgets/home_loading_skeleton.dart';
+import '../widgets/home_quick_actions_row.dart';
 import '../widgets/recommended_properties_section.dart';
 import '../widgets/share_services_section.dart';
 
@@ -37,8 +38,6 @@ class _HomeView extends StatelessWidget {
         child: Column(
           children: [
             const HomeHeader(),
-            // Scoped BlocBuilder: only the body rebuilds on state changes.
-            // The header above never rebuilds since it holds no Home data.
             Expanded(
               child: BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) => _HomeBody(state: state),
@@ -52,8 +51,6 @@ class _HomeView extends StatelessWidget {
   }
 }
 
-/// Renders the correct visual for each HomeState. Each state maps to a
-/// dedicated widget below so this switch stays a pure routing table.
 class _HomeBody extends StatelessWidget {
   const _HomeBody({required this.state});
 
@@ -79,8 +76,6 @@ class _LoadingPlaceholder extends StatelessWidget {
   }
 }
 
-/// The real Home feed once data has loaded successfully. Each section
-/// widget owns its own layout, this just stacks them vertically.
 class _HomeContent extends StatelessWidget {
   const _HomeContent({required this.state});
 
@@ -92,6 +87,8 @@ class _HomeContent extends StatelessWidget {
       padding: EdgeInsets.only(bottom: AppSpacing.xl.h),
       children: [
         SizedBox(height: AppSpacing.sm.h),
+        const HomeQuickActionsRow(),
+        SizedBox(height: AppSpacing.lg.h),
         FeaturedProjectsSection(projects: state.featuredProjects),
         SizedBox(height: AppSpacing.xl.h),
         RecommendedPropertiesSection(properties: state.recommendedProperties),

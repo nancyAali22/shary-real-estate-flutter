@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/property_listing.dart';
 import 'featured_project_card.dart';
 

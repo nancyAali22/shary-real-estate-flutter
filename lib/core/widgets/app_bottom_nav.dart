@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../constants/app_colors.dart';
 import '../constants/app_icon_sizes.dart';
-import '../constants/app_typography.dart';
+import '../theme/app_typography.dart';
 
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({required this.currentRouteName, super.key});

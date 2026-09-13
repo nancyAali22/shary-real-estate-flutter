@@ -5,7 +5,7 @@ import 'package:intl/intl.dart' as intl;
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/property_listing.dart';
 import 'contact_actions_row.dart';
 import 'investment_badge.dart';

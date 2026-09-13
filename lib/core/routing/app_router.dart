@@ -17,23 +17,28 @@ class AppRouter {
       GoRoute(
         path: '/properties',
         name: 'properties',
-        builder: (context, state) => const PlaceholderPage(title: 'عقارات'),
+        builder: (context, state) =>
+        const PlaceholderPage(title: 'عقارات', routeName: 'properties'),
       ),
       GoRoute(
         path: '/properties-abroad',
         name: 'properties-abroad',
-        builder: (context, state) =>
-        const PlaceholderPage(title: 'العقارات في الخارج'),
+        builder: (context, state) => const PlaceholderPage(
+          title: 'العقارات في الخارج',
+          routeName: 'properties-abroad',
+        ),
       ),
       GoRoute(
         path: '/shary-ai',
         name: 'shary-ai',
-        builder: (context, state) => const PlaceholderPage(title: 'Shary AI'),
+        builder: (context, state) =>
+        const PlaceholderPage(title: 'Shary AI', routeName: 'shary-ai'),
       ),
       GoRoute(
         path: '/more',
         name: 'more',
-        builder: (context, state) => const PlaceholderPage(title: 'أخرى'),
+        builder: (context, state) =>
+        const PlaceholderPage(title: 'أخرى', routeName: 'more'),
       ),
     ],
   );

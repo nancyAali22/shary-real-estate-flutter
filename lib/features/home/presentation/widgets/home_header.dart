@@ -13,34 +13,42 @@ class HomeHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSpacing.lg.w,
-        vertical: AppSpacing.md.h,
-      ),
-      child: Row(
-        children: [
-          _HeaderIconButton(
-            icon: Icons.notifications_none_rounded,
-            hasBadge: true,
-            tooltip: 'الإشعارات',
-            onTap: () {},
-          ),
-          SizedBox(width: AppSpacing.sm.w),
-          _HeaderIconButton(
-            icon: Icons.map_outlined,
-            tooltip: 'الخريطة',
-            onTap: () {},
-          ),
-          const Spacer(),
-          const _BrandLogo(),
-          const Spacer(),
-          _HeaderIconButton(
-            icon: Icons.person_outline_rounded,
-            tooltip: 'الملف الشخصي',
-            onTap: () {},
-          ),
-        ],
+    // Forced LTR here on purpose: this header's icon layout is a fixed
+    // brand convention (bell/map start, profile end), not text content.
+    // Left unforced, the ambient app-wide RTL Directionality reverses
+    // this Row's child order (first child renders on the right instead
+    // of the left) — which is exactly the "reversed" bug being fixed.
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSpacing.lg.w,
+          vertical: AppSpacing.md.h,
+        ),
+        child: Row(
+          children: [
+            _HeaderIconButton(
+              icon: Icons.notifications_none_rounded,
+              hasBadge: true,
+              tooltip: 'الإشعارات',
+              onTap: () {},
+            ),
+            SizedBox(width: AppSpacing.sm.w),
+            _HeaderIconButton(
+              icon: Icons.map_outlined,
+              tooltip: 'الخريطة',
+              onTap: () {},
+            ),
+            const Spacer(),
+            const _BrandLogo(),
+            const Spacer(),
+            _HeaderIconButton(
+              icon: Icons.person_outline_rounded,
+              tooltip: 'الملف الشخصي',
+              onTap: () {},
+            ),
+          ],
+        ),
       ),
     );
   }

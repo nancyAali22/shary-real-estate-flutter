@@ -4,13 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_spacing.dart';
-import '../../../../core/constants/app_typography.dart';
+import '../../../../core/theme/app_typography.dart';
 import '../../domain/entities/share_service.dart';
 
-/// A single "Shary Ma3ak" service tile: icon, title, subtitle, and an
-/// optional highlight badge (e.g. "40% UNDER MARKET"). Purely
-/// presentational, same pattern as the property cards — it renders
-/// whatever [service] it's given and holds no state of its own.
 class ShareServiceCard extends StatelessWidget {
   const ShareServiceCard({required this.service, super.key});
 
@@ -23,6 +19,7 @@ class ShareServiceCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(AppRadius.lg.r),
+        border: Border.all(color: AppColors.border),
         boxShadow: [
           BoxShadow(
             color: AppColors.shadow,
@@ -33,6 +30,7 @@ class ShareServiceCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Stack(
             clipBehavior: Clip.none,
@@ -50,7 +48,7 @@ class ShareServiceCard extends StatelessWidget {
           Text(
             service.title,
             style: AppTypography.sectionTitle(context),
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
           SizedBox(height: AppSpacing.xs.h),
@@ -107,8 +105,9 @@ class _HighlightBadge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: AppTypography.badge(context)
-            .copyWith(color: AppColors.brandNavy, fontSize: 9.sp),
+        style: AppTypography.badge(
+          context,
+        ).copyWith(color: AppColors.brandNavy, fontSize: 9.sp),
       ),
     );
   }
