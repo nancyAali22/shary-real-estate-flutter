@@ -12,6 +12,7 @@ import '../cubit/home_state.dart';
 import '../widgets/featured_projects_section.dart';
 import '../widgets/home_header.dart';
 import '../widgets/recommended_properties_section.dart';
+import '../widgets/share_services_section.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -78,9 +79,7 @@ class _LoadingPlaceholder extends StatelessWidget {
   }
 }
 
-/// The real Home feed once data has loaded successfully. Sections are
-/// added here incrementally (Featured Projects now; Recommended
-/// Properties and Shary Ma3ak in the following steps) — each section
+/// The real Home feed once data has loaded successfully. Each section
 /// widget owns its own layout, this just stacks them vertically.
 class _HomeContent extends StatelessWidget {
   const _HomeContent({required this.state});
@@ -97,7 +96,7 @@ class _HomeContent extends StatelessWidget {
         SizedBox(height: AppSpacing.xl.h),
         RecommendedPropertiesSection(properties: state.recommendedProperties),
         SizedBox(height: AppSpacing.xl.h),
-        // TODO(Step 4.6): ShareServicesSection(services: state.shareServices)
+        ShareServicesSection(services: state.shareServices),
       ],
     );
   }
