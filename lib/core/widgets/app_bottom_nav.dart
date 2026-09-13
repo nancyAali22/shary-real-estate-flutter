@@ -6,9 +6,6 @@ import '../constants/app_colors.dart';
 import '../constants/app_icon_sizes.dart';
 import '../constants/app_typography.dart';
 
-/// Shared bottom navigation bar. Each tab navigates via named routes
-/// (see AppRouter) so the current tab is derived from the route name,
-/// not from local widget state — keeping navigation state in one place.
 class AppBottomNav extends StatelessWidget {
   const AppBottomNav({required this.currentRouteName, super.key});
 
@@ -99,18 +96,22 @@ class _NavItem extends StatelessWidget {
     return Expanded(
       child: InkWell(
         onTap: onTap,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(tab.icon, size: AppIconSizes.lg.sp, color: color),
-            SizedBox(height: 2.h),
-            Text(
-              tab.label,
-              style: AppTypography.caption(context).copyWith(color: color),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(tab.icon, size: AppIconSizes.lg.sp, color: color),
+              SizedBox(height: 2.h),
+              Text(
+                tab.label,
+                style: AppTypography.caption(context).copyWith(color: color),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -30,8 +30,14 @@ class FeaturedProjectsSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: AppSpacing.md.h),
+        // Card width is 260.w, image is now 16:9 (≈146h at that width),
+        // so we size this from the card's own metrics instead of a
+        // hand-guessed fixed number. This intentionally has generous
+        // headroom (~30px) to absorb line-height variance across fonts
+        // and the max text-scale clamp (1.3x, see main.dart) — a fixed
+        // number tuned to *exactly* fit one device breaks on the next.
         SizedBox(
-          height: 280.h,
+          height: (260.w * 9 / 16) + AppSpacing.md.w * 2 + 100.h,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),

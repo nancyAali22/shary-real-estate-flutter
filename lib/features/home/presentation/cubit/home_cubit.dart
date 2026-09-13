@@ -26,16 +26,20 @@ class HomeCubit extends Cubit<HomeState> {
   Future<void> loadHome() async {
     emit(const HomeLoading());
     try {
-      // Futures start executing the moment each use case is called, so
-      // calling all three before awaiting any of them runs the "requests"
-      // concurrently instead of one after another.
-      final featuredFuture = _getFeaturedProjects();
-      final recommendedFuture = _getRecommendedProperties();
-      final servicesFuture = _getShareServices();
-
-      final featured = await featuredFuture;
-      final recommended = await recommendedFuture;
-      final services = await servicesFuture;
+      // The record `.wait` extension (dart:async, Dart 3.0+) starts all
+      // three requests concurrently AND attaches a listener to every
+      // one of them immediately. That matters: awaiting them one at a
+      // time instead (three separate `await` statements) means that if
+      // the first one throws, the other two — which may already have
+      // rejected too — are left with no listener at all, and Dart
+      // reports that as an unhandled exception on the zone instead of
+      // routing it through this catch block. `.wait` avoids that while
+      // still preserving each future's own type at its own position.
+      final (featured, recommended, services) = await (
+      _getFeaturedProjects(),
+      _getRecommendedProperties(),
+      _getShareServices(),
+      ).wait;
 
       final allEmpty =
           featured.isEmpty && recommended.isEmpty && services.isEmpty;

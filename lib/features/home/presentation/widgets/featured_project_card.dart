@@ -24,6 +24,7 @@ class FeaturedProjectCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.cardBackground,
         borderRadius: BorderRadius.circular(AppRadius.lg.r),
+        border: Border.all(color: AppColors.border),
         boxShadow: [
           BoxShadow(
             color: AppColors.shadow,
@@ -35,10 +36,16 @@ class FeaturedProjectCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: 150.h,
-            width: double.infinity,
+          // AspectRatio ties the image height to the card's own width
+          // (16:9), instead of a fixed `.h` value tied to design height.
+          // This is what actually caused the tablet overflow: `.w` and
+          // `.h` scale by different factors on a screen whose aspect
+          // ratio differs from the design reference, so a fixed-width
+          // card with a fixed-height image drifted out of proportion.
+          AspectRatio(
+            aspectRatio: 16 / 9,
             child: Stack(
               fit: StackFit.expand,
               children: [
@@ -47,7 +54,7 @@ class FeaturedProjectCard extends StatelessWidget {
                   Positioned(
                     top: AppSpacing.sm.h,
                     right: AppSpacing.sm.w,
-                    child: _VerifiedBadge(),
+                    child: const _VerifiedBadge(),
                   ),
               ],
             ),
@@ -56,6 +63,7 @@ class FeaturedProjectCard extends StatelessWidget {
             padding: EdgeInsets.all(AppSpacing.md.w),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
                   listing.title,
