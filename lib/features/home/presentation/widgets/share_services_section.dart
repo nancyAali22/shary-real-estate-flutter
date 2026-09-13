@@ -5,6 +5,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/widgets/brand_mark.dart';
 import '../../domain/entities/share_service.dart';
 import 'share_service_card.dart';
 
@@ -56,68 +57,49 @@ class _ShareMa3akBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(AppSpacing.lg.w),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackground,
-        borderRadius: BorderRadius.circular(AppRadius.lg.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 12.r,
-            offset: Offset(0, 4.h),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Shary Ma3ak', style: AppTypography.heading2(context)),
-                SizedBox(height: AppSpacing.xs.h),
-                Text(
-                  'furnishing, renting, and resale',
-                  style: AppTypography.caption(context),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+    // Forced LTR here on purpose: the banner copy is English brand
+    // copy ("Shary Ma3ak" / "furnishing, renting, and resale"), so it
+    // must start from the left, with the brand mark on the right —
+    // left unforced, the ambient app-wide RTL Directionality reverses
+    // this Row's child order instead.
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Container(
+        padding: EdgeInsets.all(AppSpacing.lg.w),
+        decoration: BoxDecoration(
+          color: AppColors.cardBackground,
+          borderRadius: BorderRadius.circular(AppRadius.lg.r),
+          border: Border.all(color: AppColors.border),
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.shadow,
+              blurRadius: 12.r,
+              offset: Offset(0, 4.h),
             ),
-          ),
-          SizedBox(width: AppSpacing.md.w),
-          const _BrandMark(),
-        ],
+          ],
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Shary Ma3ak', style: AppTypography.heading2(context)),
+                  SizedBox(height: AppSpacing.xs.h),
+                  Text(
+                    'furnishing, renting, and resale',
+                    style: AppTypography.caption(context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(width: AppSpacing.md.w),
+            const BrandMark(size: 52),
+          ],
+        ),
       ),
     );
   }
-}
-
-/// Decorative brand mark built from our own AppColors tokens (three
-/// overlapping circles) instead of an actual Shary logo asset we don't
-/// have — keeps the banner on-brand without depending on a missing file.
-class _BrandMark extends StatelessWidget {
-  const _BrandMark();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 52.w,
-      height: 52.w,
-      child: Stack(
-        children: [
-          Positioned(left: 0, top: 8.h, child: _dot(AppColors.brandNavy)),
-          Positioned(right: 0, top: 8.h, child: _dot(AppColors.brandTeal)),
-          Positioned(bottom: 0, left: 13.w, child: _dot(AppColors.brandYellow)),
-        ],
-      ),
-    );
-  }
-
-  Widget _dot(Color color) => Container(
-    width: 26.w,
-    height: 26.w,
-    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-  );
 }

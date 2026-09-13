@@ -6,9 +6,9 @@ import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 
-/// "محفظتي" + "تأثيرنا" quick-action cards shown right under the header.
-/// Static/decorative for now — the wallet balance is a mock display value,
-/// not real user data, so it lives here rather than in the domain layer.
+/// "المحفظة" + "تأثيرنا" quick-action cards shown right under the header.
+/// Title-only by design (matches the reference): no wallet balance and
+/// no subtitle copy, since neither is backed by real data yet.
 class HomeQuickActionsRow extends StatelessWidget {
   const HomeQuickActionsRow({super.key});
 
@@ -22,8 +22,7 @@ class HomeQuickActionsRow extends StatelessWidget {
             child: _QuickActionCard(
               icon: Icons.account_balance_wallet_rounded,
               iconBackground: AppColors.brandTeal,
-              title: 'محفظتي',
-              subtitle: '19,245.49 ج.م',
+              title: 'المحفظة',
               onTap: () {},
             ),
           ),
@@ -34,7 +33,6 @@ class HomeQuickActionsRow extends StatelessWidget {
               iconBackground: Colors.transparent,
               iconColor: AppColors.brandTeal,
               title: 'تأثيرنا',
-              subtitle: 'معًا نبني مستقبل أفضل',
               onTap: () {},
             ),
           ),
@@ -49,7 +47,6 @@ class _QuickActionCard extends StatelessWidget {
     required this.icon,
     required this.iconBackground,
     required this.title,
-    required this.subtitle,
     required this.onTap,
     this.iconColor = Colors.white,
   });
@@ -58,7 +55,6 @@ class _QuickActionCard extends StatelessWidget {
   final Color iconBackground;
   final Color iconColor;
   final String title;
-  final String subtitle;
   final VoidCallback onTap;
 
   @override
@@ -87,25 +83,13 @@ class _QuickActionCard extends StatelessWidget {
             ),
             SizedBox(width: AppSpacing.sm.w),
             Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title,
-                    style: AppTypography.caption(context),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  Text(
-                    subtitle,
-                    style: AppTypography.sectionTitle(
-                      context,
-                    ).copyWith(fontSize: 13.sp),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+              child: Text(
+                title,
+                style: AppTypography.sectionTitle(
+                  context,
+                ).copyWith(fontSize: 14.sp),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
             ),
           ],

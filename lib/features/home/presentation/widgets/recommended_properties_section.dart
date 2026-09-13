@@ -3,16 +3,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
+import '../../../../core/widgets/slide_in_item.dart';
 import '../../domain/entities/property_listing.dart';
 import 'recommended_property_card.dart';
 
-/// "الوحدات الموصى بها" section: title + full-width vertical cards.
-/// Rendered as a plain Column (not its own ListView.builder) because it
-/// sits inside the page's single outer ListView — nesting a second
-/// scrollable here would create ambiguous/unbounded scroll physics.
-/// The mock dataset is small and finite, so eager building is fine; if
-/// this grows into a long, independently-paginated feed later, it should
-/// move to its own screen with its own ListView.builder instead.
 class RecommendedPropertiesSection extends StatelessWidget {
   const RecommendedPropertiesSection({required this.properties, super.key});
 
@@ -29,8 +23,11 @@ class RecommendedPropertiesSection extends StatelessWidget {
         children: [
           Text('الوحدات الموصى بها', style: AppTypography.heading2(context)),
           SizedBox(height: AppSpacing.md.h),
-          for (final property in properties) ...[
-            RecommendedPropertyCard(listing: property),
+          for (var i = 0; i < properties.length; i++) ...[
+            SlideInItem(
+              delay: Duration(milliseconds: 60 * i),
+              child: RecommendedPropertyCard(listing: properties[i]),
+            ),
             SizedBox(height: AppSpacing.md.h),
           ],
         ],

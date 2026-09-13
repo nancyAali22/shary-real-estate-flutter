@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_icon_sizes.dart';
 import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/widgets/brand_mark.dart';
 
 /// Home screen header: notification bell, map/location shortcut, brand
 /// logo, and profile action. Stateless and static — never rebuilds when
@@ -27,25 +28,35 @@ class HomeHeader extends StatelessWidget {
         ),
         child: Row(
           children: [
-            _HeaderIconButton(
-              icon: Icons.notifications_none_rounded,
-              hasBadge: true,
-              tooltip: 'الإشعارات',
-              onTap: () {},
+            Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _HeaderIconButton(
+                    icon: Icons.notifications_none_rounded,
+                    hasBadge: true,
+                    tooltip: 'الإشعارات',
+                    onTap: () {},
+                  ),
+                  SizedBox(width: AppSpacing.sm.w),
+                  _HeaderIconButton(
+                    icon: Icons.map_outlined,
+                    tooltip: 'الخريطة',
+                    onTap: () {},
+                  ),
+                ],
+              ),
             ),
-            SizedBox(width: AppSpacing.sm.w),
-            _HeaderIconButton(
-              icon: Icons.map_outlined,
-              tooltip: 'الخريطة',
-              onTap: () {},
-            ),
-            const Spacer(),
             const _BrandLogo(),
-            const Spacer(),
-            _HeaderIconButton(
-              icon: Icons.person_outline_rounded,
-              tooltip: 'الملف الشخصي',
-              onTap: () {},
+            Expanded(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: _HeaderIconButton(
+                  icon: Icons.person_outline_rounded,
+                  tooltip: 'الملف الشخصي',
+                  onTap: () {},
+                ),
+              ),
             ),
           ],
         ),
@@ -62,11 +73,7 @@ class _BrandLogo extends StatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(
-          Icons.blur_circular_rounded,
-          color: AppColors.brandTeal,
-          size: AppIconSizes.xl.sp,
-        ),
+        const BrandMark(size: AppIconSizes.xl),
         SizedBox(width: AppSpacing.xs.w),
         Text(
           'Shary',

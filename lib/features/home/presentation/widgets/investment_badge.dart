@@ -6,12 +6,13 @@ import '../../../../core/constants/app_radius.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/theme/app_typography.dart';
 
-/// Small pill badge showing the investment return percentage,
-/// overlaid on the top corner of a property image.
+/// Descriptive ribbon overlaid on the property image, matching the
+/// reference's "عائد استثمار مرتفع" badge. The exact percentage is
+/// shown separately, next to the resale chip below the image — keeping
+/// this ribbon purely qualitative avoids showing the same number twice
+/// in two crowded places.
 class InvestmentBadge extends StatelessWidget {
-  const InvestmentBadge({required this.percent, super.key});
-
-  final int percent;
+  const InvestmentBadge({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +22,12 @@ class InvestmentBadge extends StatelessWidget {
         vertical: AppSpacing.xs.h,
       ),
       decoration: BoxDecoration(
-        color: AppColors.brandTeal,
+        // Slightly transparent instead of solid, so the property image
+        // underneath stays a bit visible through the ribbon.
+        color: AppColors.brandTeal.withValues(alpha: 0.85),
         borderRadius: BorderRadius.circular(AppRadius.pill.r),
       ),
-      child: Text(
-        'عائد استثمار مرتفع $percent%',
-        style: AppTypography.badge(context),
-      ),
+      child: Text('عائد استثمار مرتفع', style: AppTypography.badge(context)),
     );
   }
 }

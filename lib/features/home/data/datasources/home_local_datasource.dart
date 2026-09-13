@@ -104,13 +104,12 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
     ),
   ];
 
+  // Order matches the reference layout exactly: with the 2-column grid
+  // consuming this list two-at-a-time and the ambient RTL Directionality
+  // placing item[i] on the right and item[i+1] on the left of each row,
+  // this order renders row 1 as [resale | book-developer] and row 2 as
+  // [legal-assistant | market-index], right-to-left.
   static const _shareServices = <ShareServiceModel>[
-    ShareServiceModel(
-      id: 'svc_001',
-      title: 'احجز مع المطوّر',
-      subtitle: 'احجز وحدتك أونلاين مباشرة من المطور مع تأكيد فوري عبر منصة شاري',
-      iconAssetPath: 'assets/icons/book_developer.png', // TODO: add real asset
-    ),
     ShareServiceModel(
       id: 'svc_002',
       title: 'فرص إعادة بيع حصرية',
@@ -119,16 +118,22 @@ class HomeLocalDataSourceImpl implements HomeLocalDataSource {
       highlightBadge: '40% UNDER MARKET',
     ),
     ShareServiceModel(
-      id: 'svc_003',
-      title: 'مؤشر شاري',
-      subtitle: 'مؤشر سوق العقارات',
-      iconAssetPath: 'assets/icons/market_index.png', // TODO: add real asset
+      id: 'svc_001',
+      title: 'احجز مع المطوّر',
+      subtitle: 'احجز وحدتك أونلاين مباشرة من المطور مع تأكيد فوري عبر منصة شاري',
+      iconAssetPath: 'assets/icons/book_developer.png', // TODO: add real asset
     ),
     ShareServiceModel(
       id: 'svc_004',
       title: 'المساعد القانوني',
       subtitle: 'راجع عقدك قبل أن تستثمر',
       iconAssetPath: 'assets/icons/legal_assistant.png', // TODO: add real asset
+    ),
+    ShareServiceModel(
+      id: 'svc_003',
+      title: 'مؤشر شاري',
+      subtitle: 'مؤشر سوق العقارات',
+      iconAssetPath: 'assets/icons/market_index.png', // TODO: add real asset
     ),
   ];
 }

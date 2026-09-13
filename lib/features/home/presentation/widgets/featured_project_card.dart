@@ -9,9 +9,6 @@ import '../../domain/entities/property_listing.dart';
 import 'contact_actions_row.dart';
 import 'property_image.dart';
 
-/// A single "Featured Project" card: image, verification badge, title,
-/// location, and contact actions. Kept purely presentational — it renders
-/// whatever [listing] it's given and holds no state of its own.
 class FeaturedProjectCard extends StatelessWidget {
   const FeaturedProjectCard({required this.listing, super.key});
 
@@ -38,12 +35,6 @@ class FeaturedProjectCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          // AspectRatio ties the image height to the card's own width
-          // (16:9), instead of a fixed `.h` value tied to design height.
-          // This is what actually caused the tablet overflow: `.w` and
-          // `.h` scale by different factors on a screen whose aspect
-          // ratio differs from the design reference, so a fixed-width
-          // card with a fixed-height image drifted out of proportion.
           AspectRatio(
             aspectRatio: 16 / 9,
             child: Stack(
@@ -53,7 +44,7 @@ class FeaturedProjectCard extends StatelessWidget {
                 if (listing.isVerified)
                   Positioned(
                     top: AppSpacing.sm.h,
-                    right: AppSpacing.sm.w,
+                    left: AppSpacing.sm.w,
                     child: const _VerifiedBadge(),
                   ),
               ],
@@ -72,11 +63,24 @@ class FeaturedProjectCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(height: AppSpacing.xs.h),
-                Text(
-                  listing.location,
-                  style: AppTypography.caption(context),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 14.sp,
+                      color: AppColors.textSecondary,
+                    ),
+                    SizedBox(width: AppSpacing.xs.w),
+                    Flexible(
+                      child: Text(
+                        listing.location,
+                        style: AppTypography.caption(context),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
                 ),
                 SizedBox(height: AppSpacing.md.h),
                 const ContactActionsRow(),

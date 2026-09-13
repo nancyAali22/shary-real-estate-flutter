@@ -12,13 +12,6 @@ class FeaturedProjectsSection extends StatelessWidget {
 
   final List<PropertyListing> projects;
 
-  /// Height budget for everything below the image inside
-  /// FeaturedProjectCard: 2-line title (~45) + xs gap (4) +
-  /// location line (~17) + md gap (12) + contact buttons row (40),
-  /// plus a ~12px safety margin for font-metric variance across devices.
-  /// Keep this in sync if FeaturedProjectCard's text content changes.
-  static const double _cardTextBlockHeight = 130;
-
   @override
   Widget build(BuildContext context) {
     if (projects.isEmpty) return const SizedBox.shrink();
@@ -34,21 +27,30 @@ class FeaturedProjectsSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: AppSpacing.md.h),
-        SizedBox(
-          height:
-          (260.w * 9 / 16) +
-              AppSpacing.md.w * 2 +
-              _cardTextBlockHeight.h,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),
-            itemCount: projects.length,
-            itemBuilder: (context, index) => Padding(
-              padding: EdgeInsets.only(left: AppSpacing.md.w),
-              child: SlideInItem(
-                delay: Duration(milliseconds: 60 * index),
-                child: FeaturedProjectCard(listing: projects[index]),
-              ),
+        // No hard-coded height budget: a fixed-height estimate for the
+        // text block below the image (title lines, font metrics) drifts
+        // across devices/text scales and was overflowing in practice.
+        // IntrinsicHeight sizes this row to whatever its tallest card
+        // actually needs, so overflow here is structurally impossible.
+        // The dataset is small and fixed (same reasoning as
+        // ShareServicesSection), so losing ListView.builder's lazy
+        // building costs nothing real.
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: AppSpacing.lg.w),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                for (var index = 0; index < projects.length; index++)
+                  Padding(
+                    padding: EdgeInsets.only(left: AppSpacing.md.w),
+                    child: SlideInItem(
+                      delay: Duration(milliseconds: 60 * index),
+                      child: FeaturedProjectCard(listing: projects[index]),
+                    ),
+                  ),
+              ],
             ),
           ),
         ),

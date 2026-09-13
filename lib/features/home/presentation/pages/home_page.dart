@@ -89,11 +89,11 @@ class _HomeContent extends StatelessWidget {
         SizedBox(height: AppSpacing.sm.h),
         const HomeQuickActionsRow(),
         SizedBox(height: AppSpacing.lg.h),
+        ShareServicesSection(services: state.shareServices),
+        SizedBox(height: AppSpacing.xl.h),
         FeaturedProjectsSection(projects: state.featuredProjects),
         SizedBox(height: AppSpacing.xl.h),
         RecommendedPropertiesSection(properties: state.recommendedProperties),
-        SizedBox(height: AppSpacing.xl.h),
-        ShareServicesSection(services: state.shareServices),
       ],
     );
   }
